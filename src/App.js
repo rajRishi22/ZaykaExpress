@@ -8,8 +8,10 @@ import {
   Route
 } from "react-router-dom";
 import Login from './screens/Login';
+import { CartProvider } from './components/ContextReducer';
 function App() {
   return (
+    <CartProvider>
     <Router>
     <div>
       <Routes>
@@ -19,6 +21,7 @@ function App() {
       </Routes>
     </div>
     </Router>
+    </CartProvider>
   );
 }
 
