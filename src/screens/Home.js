@@ -129,7 +129,9 @@ function Home() {
                         .map((filterItems) => {
                           return (
                             <div key={filterItems._id} className='col-12 col-md-6 col-lg-3 mb-4'>
-                              <Card foodName={filterItems.name} 
+                              <Card 
+                              id={filterItems._id}
+                              foodName={filterItems.name} 
                               options={filterItems.options[0]}
                               imgSrc={filterItems.img}
                               />
