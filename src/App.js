@@ -2,6 +2,7 @@
 import './App.css';
 import Home from './screens/Home';
 import Signup from './screens/Signup';
+import Cart from './screens/Cart';
 import {
   BrowserRouter as Router,
   Routes,
@@ -16,8 +17,11 @@ function App() {
     <div>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/home" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/createUser" element={<Signup />} />
+        <Route path="/cart" element={<Cart/>} />
+        <Route path="*" element={<Home />} />
       </Routes>
     </div>
     </Router>

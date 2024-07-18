@@ -1,21 +1,26 @@
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useCart, useDispatchCart } from './ContextReducer';
 
 
 function Card(props) {
-  
+  const priceRef=useRef();
   let options = props.options;
   let priceOptions=Object.keys(options);
-  console.log(props.foodName);
-  console.log(props.options);
-  console.log(props.id);
-  const[qty,setQty]=useState(1);
+  let data=useCart();
+  // console.log(props.foodName);
+  // console.log(props.options);
+  // console.log(props.id);
+  const[qty,setQty]=useState('1');
   const[size,setSize]=useState("");
   let dispatch = useDispatchCart();
   const handleAddToCart = async () => {
-    await dispatch({ type: "ADD", payload: { foodName: props.foodName,id:props.id, qty: qty, size: size, price: props.options[size] } });
+    await dispatch({ type: "ADD", payload: { foodName: props.foodName,id:props.id, qty: qty, size: size, price: finalPrice } });
+    console.log(data);
   }
-
+  let finalPrice=qty*parseInt(options[size]);
+  useEffect(()=>{
+    setSize(priceRef.current.value);
+  },[])
 
   return (
     <div>
@@ -34,7 +39,7 @@ function Card(props) {
           })}
         </select>
     
-        <select className='m-2 h-100 bg-warning rounded' onChange={(e)=>setSize(e.target.value)}>
+        <select className='m-2 h-100 bg-warning rounded' ref={priceRef} onChange={(e)=>setSize(e.target.value)}>
           {priceOptions.map((data)=>{
             console.log(data);
             return <option key={data} value={data}>{data}</option>
@@ -42,7 +47,7 @@ function Card(props) {
           })}
         </select>
         <div className='d-inline h-100 fs-5'>
-          Total Price
+        Rs. {finalPrice}/-
         </div>
       </div>
       <hr></hr>
