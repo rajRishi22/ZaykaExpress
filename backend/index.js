@@ -11,7 +11,7 @@ app.get('/',(req,res)=>{
 app.use((req,res,next)=>{
     res.setHeader("Acess-Control-Allow-Origin","http://localhost:3000");
     res.header("Acess-Control-Allow-Headers",
-        "Origin, X-Requested-With, Conten-Type, Accept"
+        "Origin, X-Requested-With, Content-Type, Accept"
     );
     next();
 });

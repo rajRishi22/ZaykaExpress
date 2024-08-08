@@ -11,7 +11,7 @@ function Home() {
 
   const loadData = async () => {
 
-    let response = await fetch('https://zaykaexpress-backend.onrender.com/api/foodData', {
+    let response = await fetch('http://localhost:5000/api/foodData', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' }
     });
