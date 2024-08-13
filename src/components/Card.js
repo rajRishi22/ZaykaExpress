@@ -14,8 +14,29 @@ function Card(props) {
   const[size,setSize]=useState("");
   let dispatch = useDispatchCart();
   const handleAddToCart = async () => {
-    await dispatch({ type: "ADD", payload: { foodName: props.foodName,id:props.id, qty: qty, size: size, price: finalPrice } });
-    console.log(data);
+    let food=[]
+    for(const item of data){
+      if(item.id===props.id){
+        food=item;
+        break;
+      }
+    }
+
+    if(food!=[]){
+      if(food.size===size){
+        await dispatch({type:"UPDATE",id:props.id,price:finalPrice,qty:qty})
+        return 
+      }else if(food.size!==size){
+        await dispatch({ type: "ADD", payload: { foodName: props.foodName,id:props.id, qty: qty, size: size, price: finalPrice } });
+        return
+        console.log(data);
+      }
+      return
+    }
+      await dispatch({ type: "ADD", payload: { foodName: props.foodName,id:props.id, qty: qty, size: size, price: finalPrice } });
+    
+
+   
   }
   let finalPrice=qty*parseInt(options[size]);
   useEffect(()=>{

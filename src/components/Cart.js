@@ -1,5 +1,5 @@
 import React from 'react'
-import Delete from 'react-bootstrap/Badge';
+
 import { useCart, useDispatchCart } from '../components/ContextReducer';
 export default function Cart() {
   let data = useCart();
@@ -11,17 +11,12 @@ export default function Cart() {
       </div>
     )
   }
-  // const handleRemove = (index)=>{
-  //   console.log(index)
-  //   dispatch({type:"REMOVE",index:index})
-  // }
+
 
   const handleCheckOut = async () => {
     let userEmail = localStorage.getItem("userEmail");
-    // console.log(data,localStorage.getItem("userEmail"),new Date())
-    let response = await fetch("http://localhost:5000/api/auth/orderData", {
-      // credentials: 'include',
-      // Origin:"http://localhost:3000/login",
+    let response = await fetch("http://localhost:5000/api/orderData", {
+    
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -31,9 +26,13 @@ export default function Cart() {
         email: userEmail,
         order_date: new Date().toDateString()
       })
-    });
-    console.log("JSON RESPONSE:::::", response.status)
+    }
+  );
+    console.log("JSON RESPONSE:::::", response)
+    dispatch({ type: "DROP" })
+    
     if (response.status === 200) {
+
       dispatch({ type: "DROP" })
     }
   }
@@ -63,11 +62,13 @@ export default function Cart() {
                 <td>{food.qty}</td>
                 <td>{food.size}</td>
                 <td>{food.price}</td>
-                <td ><button type="button" className="btn p-0"><Delete onClick={() => { dispatch({ type: "REMOVE", index: index }) }} /></button> </td></tr>
+                <td ><button type="button" className="btn p-0" onClick={() => { dispatch({ type: "REMOVE", index: index }) }}>
+                  Delete
+                    </button> </td></tr>
             ))}
           </tbody>
         </table>
-        <div><h1 className='fs-2'>Total Price: {totalPrice}/-</h1></div>
+        <div><h1 className='fs-2 text-white'>Total Price: {totalPrice}/-</h1></div>
         <div>
           <button className='btn bg-success mt-5 ' onClick={handleCheckOut} > Check Out </button>
         </div>
