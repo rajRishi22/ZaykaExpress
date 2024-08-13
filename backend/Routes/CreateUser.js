@@ -46,11 +46,11 @@ router.post(
         try {
             let userData = await User.findOne({ email: email });
             if (!userData) {
-                return res.status(400).json({ errors: "Try logging in again" });
+                return res.status(400).json({ errors: "No user exists" });
             }
             const pwdCompare=await bcrpyt.compare(req.body.password,userData.password);
             if (!pwdCompare) {
-                return res.status(400).json({ errors: "Try logging in again" });
+                return res.status(400).json({ errors: "Incorrect Password!!" });
             }
             const data={
                 user:{

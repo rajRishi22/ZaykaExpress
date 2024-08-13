@@ -42,11 +42,11 @@ export default function Login() {
 
   return (
     <>
-      <div className='container'>
+  <div className='container w-50 d:flex justify-center content-center border-2 border-indigo-500 '>
+    <h2 className='text-center'>Please login to continue</h2>
+<form onSubmit={handleSubmit} >
 
-<form onSubmit={handleSubmit}>
-
-<div className="form-group">
+<div className="form-group ">
 <label htmlFor="exampleInputEmail1">Email address</label>
 <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" name='email' value={credentials.email} onChange={onChange}/>
 <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>

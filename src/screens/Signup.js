@@ -1,8 +1,13 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
+
+
 
 function Signup() {
+    let navigate=useNavigate();
     const [credentials,setcredentials]=useState({name:'',email:'',password:'',geolocation:''});
     const handleSubmit = async(e)=>{
         e.preventDefault();
@@ -22,6 +27,8 @@ function Signup() {
         console.log(json);  
         if(!json.success){
             alert('Enter valid details');
+        }else{
+          navigate('/login');
         }
     }
     const onChange=(event)=>{
@@ -30,9 +37,10 @@ function Signup() {
 
   return (
     <>
-    <div className='container'>
+    <div className='container w-50 d:flex justify-center content-center border-2 border-indigo-500' >
 
     <form onSubmit={handleSubmit}>
+    <h2 className='text-center'>Please enter your details to signup</h2>
   <div className="form-group">
     <label htmlFor="name">Name</label>
     <input type="text" className="form-control" name='name' value={credentials.name} onChange={onChange} />

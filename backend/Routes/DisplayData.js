@@ -6,7 +6,7 @@ router.post('/foodData',async(req,res)=>{
         res.send([global.foodData2,global.foodCategory]);
     }catch(err){
         console.log(err);
-        res.send('Server Error')
+        res.send('Server Error');
     }
 });
 
