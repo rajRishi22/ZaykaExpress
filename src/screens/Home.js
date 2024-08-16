@@ -116,7 +116,7 @@ function Home() {
 
 
       <div className='container'>
-        {foodCat.length !== 0 ? (
+        { foodCat && foodCat.length !== 0 ? (
           foodCat.map((data) => {
             return (
               <div className='mb-3' key={data._id}>
