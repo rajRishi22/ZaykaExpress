@@ -29,7 +29,7 @@ function Card(props) {
       }else if(food.size!==size){
         await dispatch({ type: "ADD", payload: { foodName: props.foodName,id:props.id, qty: qty, size: size, price: finalPrice } });
         return
-        console.log(data);
+       
       }
       return
     }
@@ -46,7 +46,6 @@ function Card(props) {
   return (
     <div>
     <div className="card m-2 p-2" style={{"width": "20rem","background":"#FFBB5C"}}>
-    
     <img src={props.imgSrc} className="card-img-top" alt="..." style={{height:"140px",objectFit:"fill"}} />
       <div className="card-body">  
         
@@ -64,7 +63,6 @@ function Card(props) {
           {priceOptions.map((data)=>{
             console.log(data);
             return <option key={data} value={data}>{data}</option>
-    
           })}
         </select>
         <div className='d-inline h-100 fs-5'>

@@ -1,12 +1,12 @@
 const express = require('express');
 const router=express.Router();  
-const Order= require('.../models/Orders')
+const Order= require('../models/Orders')
 
 router.post('/orderData',async(req,res)=>{
-    console.log(data);
     let data=req.body.order_data;
-    await data.splice(0,0,{Order_date:req.body.order_date})
-    let eId= await Order.findOne({'email':req.body.email})
+    console.log(data);
+    // await data.splice(0,0,{Order_date:req.body.order_date})
+    let eId= await Order.find({'email':req.body.email})
     console.log(eId)
     if(eId===null){
         try{
@@ -31,4 +31,17 @@ router.post('/orderData',async(req,res)=>{
         }
     }
 })
+
+// router.post('/myOrderData',async(req,res)=>{
+//     try{
+//         console.log(req.body.email);
+//         let eId=await Order.findOne({'email':req.body.email})
+//         console.log(eId);
+//         res.json({orderData:eId})
+//     }
+//     catch(err){
+//         console.log(err);
+//         res.send('Server Error');
+//     }
+// });
 module.exports=router;
