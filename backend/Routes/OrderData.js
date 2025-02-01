@@ -1,36 +1,35 @@
 const express = require('express');
-const router=express.Router();  
-const Order= require('../models/Orders')
+const router = express.Router();
+const Order = require('../models/Orders');
 
-router.post('/orderData',async(req,res)=>{
-    let data=req.body.order_data;
-    console.log(data);
-    // await data.splice(0,0,{Order_date:req.body.order_date})
-    let eId= await Order.find({'email':req.body.email})
-    console.log(eId)
-    if(eId===null){
-        try{
+router.post('/orderData', async (req, res) => {
+    try {
+        let data = req.body.order_data;
+        let email = req.body.email;
+        
+        // Check if email exists in Order collection
+        let eId = await Order.findOne({ 'email': email });
+        
+        if (eId === null) {
+            // Create new order document
             await Order.create({
-                email:req.body.email,
-                order_data:[data]
-            }).then(()=>{
-                res.json({sucess:true})
-            })
-        } catch(error){
-            console.log(error.message)
-            res.send("Server Error".error.message)
+                email: email,
+                order_data: [data]
+            });
+        } else {
+            // Update existing order document
+            await Order.findOneAndUpdate(
+                { email: email },
+                { $push: { order_data: data } }
+            );
         }
-    }else{
-        try{
-            await Order.findOneAndUpdate({email:req.body.email},
-            {$push:{order_data:data}}).then(()=>{ //push yahan pe append karne ka kaam kr rahi hai warna purana data chala jayega
-                res.json({sucess:true})
-            })
-        }catch(error){
-            res.send("Server Error",error.message)
-        }
+        
+        res.json({ success: true });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Server Error");
     }
-})
+});
 
 router.post('/myOrderData',async(req,res)=>{
     try{
@@ -44,4 +43,4 @@ router.post('/myOrderData',async(req,res)=>{
         res.send('Server Error');
     }
 });
-module.exports=router;
+module.exports = router;

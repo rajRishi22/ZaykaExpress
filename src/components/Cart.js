@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import { useCart, useDispatchCart } from '../components/ContextReducer';
 export default function Cart() {
   let data = useCart();
   let dispatch = useDispatchCart();
+  const [loading, setLoading] = useState(false);
+
   if (data.length === 0) {
     return (
       <div>
@@ -14,29 +16,50 @@ export default function Cart() {
 
 
   const handleCheckOut = async () => {
-    console.log(data);
-    let userEmail = localStorage.getItem("userEmail");
-    let response = await fetch("http://localhost:5000/api/orderData", {
-    
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        order_data: data,
-        email: userEmail,
-        order_date: new Date().toDateString()
-      })
-    }
-  );
-    console.log("JSON RESPONSE:::::", response)
-    dispatch({ type: "DROP" })
-    
-    if (response.status === 200) {
+    try {
+        setLoading(true);
+        let userEmail = localStorage.getItem("userEmail");
+        
+        // Create order data structure matching schema
+        let orderData = {
+            email: userEmail,
+            order_data: [{
+                Order_date: new Date().toISOString(),
+                items: data.map(item => ({
+                    foodName: item.foodName,
+                    qty: item.qty,
+                    size: item.size,
+                    price: item.price
+                })),
+                totalPrice: totalPrice
+            }]
+        };
 
-      dispatch({ type: "DROP" })
+        const response = await fetch("http://localhost:5000/api/orderData", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(orderData)
+        });
+
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+
+        const json = await response.json();
+        
+        if (json.success) {
+            dispatch({ type: "DROP" });
+            alert("Order Placed Successfully!");
+        }
+    } catch (error) {
+        console.error("Error:", error);
+        alert("Failed to place order");
+    } finally {
+        setLoading(false);
     }
-  }
+  };
 
   let totalPrice = data.reduce((total, food) => total + food.price, 0)
   return (
@@ -71,7 +94,7 @@ export default function Cart() {
         </table>
         <div><h1 className='fs-2 text-white'>Total Price: {totalPrice}/-</h1></div>
         <div>
-          <button className='btn bg-success mt-5 ' onClick={handleCheckOut} > Check Out </button>
+          <button className='btn bg-success mt-5 ' onClick={handleCheckOut} disabled={loading}> {loading ? "Processing..." : "Check Out"} </button>
         </div>
       </div>
 
