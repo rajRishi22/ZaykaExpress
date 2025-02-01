@@ -174,33 +174,60 @@ function Home() {
       <style>
         {`
           body {
-            background: linear-gradient(135deg, #f5f7fa 0%, #f8f9fa 100%);
+            background: linear-gradient(135deg, #f6f9fc 0%, #f1f4f9 100%);
+            position: relative;
+            overflow-x: hidden;
+          }
+
+          body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 0%, rgba(255,95,109,0.03) 0%, transparent 70%),
+                        radial-gradient(circle at 80% 50%, rgba(255,195,113,0.03) 0%, transparent 70%);
+            pointer-events: none;
           }
 
           .main-container {
             padding: 2rem 4rem;
             max-width: 1400px;
             margin: 0 auto;
+            position: relative;
+            z-index: 1;
           }
 
           .category-section {
-            margin-bottom: 3rem;
-            padding: 1rem;
-            background: white;
-            border-radius: 16px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            margin-bottom: 2.5rem;
+            padding: 1.5rem;
+            border: 1px solid rgba(255,255,255,0.7);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+          }
+
+          .category-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
           }
 
           .category-header {
             position: relative;
             margin-bottom: 2rem;
-            padding-bottom: 0.5rem;
+            padding-bottom: 1rem;
           }
 
           .category-title {
+            font-family: 'Poppins', sans-serif;
             font-size: 2rem;
             font-weight: 600;
-            color: #1e293b;
+            background: linear-gradient(45deg, #2d3436 30%, #636e72 90%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             margin: 0;
             padding: 1rem 0;
             display: flex;
@@ -210,21 +237,10 @@ function Home() {
 
           .category-title::before {
             content: '';
-            width: 8px;
-            height: 32px;
-            background: #00b894;
-            border-radius: 4px;
-            display: inline-block;
-          }
-
-          .category-divider {
-            height: 2px;
-            background: linear-gradient(90deg, #00b894 0%, transparent 100%);
-            margin-top: 1rem;
-          }
-
-          .row {
-            margin: 0 -15px;
+            width: 6px;
+            height: 35px;
+            background: linear-gradient(180deg, #FF5F6D 0%, #FFC371 100%);
+            border-radius: 3px;
           }
 
           @media (max-width: 768px) {
