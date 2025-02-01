@@ -133,34 +133,34 @@ function Home() {
         </div>
       </div>
 
-      <div className='container'>
+      <div className='main-container'>
         {foodCat && foodCat.length !== 0 ? (
           foodCat.map((data) => {
             return (
-              <div className='mb-3' key={data._id}>
-                <div className='fs-3 m-3'>
-                  {data.CategoryName}
-                  <hr />
-                  <div className='row'>
-                    {foodItem.length !== 0 ? (
-                      foodItem
-                        .filter( (item) => (item.CategoryName === data.CategoryName)  && (item.name.toLowerCase().includes(search.toLocaleLowerCase()))) 
-                        .map((filterItems) => {
-                          return (
-                            <div key={filterItems._id} className='col-12 col-md-6 col-lg-3 mb-4'>
-                              <Card 
-                              id={filterItems._id}
-                              foodName={filterItems.name} 
-                              options={filterItems.options[0]}
-                              imgSrc={filterItems.img}
-                              />
-                            </div>
-                          );
-                        })
-                    ) : (
-                      <div>No such data found</div>
-                    )}
-                  </div>
+              <div className='category-section' key={data._id}>
+                <div className='category-header'>
+                  <h2 className='category-title'>{data.CategoryName}</h2>
+                  <div className='category-divider'></div>
+                </div>
+                <div className='row g-4'>
+                  {foodItem.length !== 0 ? (
+                    foodItem
+                      .filter( (item) => (item.CategoryName === data.CategoryName)  && (item.name.toLowerCase().includes(search.toLocaleLowerCase()))) 
+                      .map((filterItems) => {
+                        return (
+                          <div key={filterItems._id} className='col-12 col-md-6 col-lg-3 mb-4'>
+                            <Card 
+                            id={filterItems._id}
+                            foodName={filterItems.name} 
+                            options={filterItems.options[0]}
+                            imgSrc={filterItems.img}
+                            />
+                          </div>
+                        );
+                      })
+                  ) : (
+                    <div>No such data found</div>
+                  )}
                 </div>
               </div>
             );
@@ -173,6 +173,70 @@ function Home() {
 
       <style>
         {`
+          body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #f8f9fa 100%);
+          }
+
+          .main-container {
+            padding: 2rem 4rem;
+            max-width: 1400px;
+            margin: 0 auto;
+          }
+
+          .category-section {
+            margin-bottom: 3rem;
+            padding: 1rem;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+          }
+
+          .category-header {
+            position: relative;
+            margin-bottom: 2rem;
+            padding-bottom: 0.5rem;
+          }
+
+          .category-title {
+            font-size: 2rem;
+            font-weight: 600;
+            color: #1e293b;
+            margin: 0;
+            padding: 1rem 0;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+          }
+
+          .category-title::before {
+            content: '';
+            width: 8px;
+            height: 32px;
+            background: #00b894;
+            border-radius: 4px;
+            display: inline-block;
+          }
+
+          .category-divider {
+            height: 2px;
+            background: linear-gradient(90deg, #00b894 0%, transparent 100%);
+            margin-top: 1rem;
+          }
+
+          .row {
+            margin: 0 -15px;
+          }
+
+          @media (max-width: 768px) {
+            .main-container {
+              padding: 1rem;
+            }
+            
+            .category-title {
+              font-size: 1.5rem;
+            }
+          }
+
           .carousel-overlay {
             position: absolute;
             top: 0;

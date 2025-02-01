@@ -11,6 +11,7 @@ import {
 } from "react-router-dom";
 import Login from './screens/Login';
 import { CartProvider } from './components/ContextReducer';
+import Booking from './screens/Booking';
 function App() {
   return (
     <CartProvider>
@@ -21,6 +22,7 @@ function App() {
         <Route path="/home" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/createUser" element={<Signup />} />
+        <Route path="/myorders" element={<Booking />} />
         <Route path="*" element={<Home />} />
       </Routes>
     </div>

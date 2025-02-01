@@ -32,16 +32,16 @@ router.post('/orderData',async(req,res)=>{
     }
 })
 
-// router.post('/myOrderData',async(req,res)=>{
-//     try{
-//         console.log(req.body.email);
-//         let eId=await Order.findOne({'email':req.body.email})
-//         console.log(eId);
-//         res.json({orderData:eId})
-//     }
-//     catch(err){
-//         console.log(err);
-//         res.send('Server Error');
-//     }
-// });
+router.post('/myOrderData',async(req,res)=>{
+    try{
+        console.log(req.body.email);
+        let eId=await Order.findOne({'email':req.body.email})
+        console.log(eId);
+        res.json({orderData:eId})
+    }
+    catch(err){
+        console.log(err);
+        res.send('Server Error');
+    }
+});
 module.exports=router;
