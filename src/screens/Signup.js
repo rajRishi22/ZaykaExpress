@@ -3,9 +3,6 @@ import { Link } from 'react-router-dom'
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-
-
-
 function Signup() {
     let navigate=useNavigate();
     const [credentials,setcredentials]=useState({name:'',email:'',password:'',geolocation:''});

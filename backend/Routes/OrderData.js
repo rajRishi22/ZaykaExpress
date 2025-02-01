@@ -23,7 +23,7 @@ router.post('/orderData',async(req,res)=>{
     }else{
         try{
             await Order.findOneAndUpdate({email:req.body.email},
-            {$push:{order_data:data}}).then(()=>{ //push yahan pe append karne ka kaam kr rahi hai warna purana data chala
+            {$push:{order_data:data}}).then(()=>{ //push yahan pe append karne ka kaam kr rahi hai warna purana data chala jayega
                 res.json({sucess:true})
             })
         }catch(error){

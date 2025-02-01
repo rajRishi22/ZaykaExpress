@@ -9,8 +9,8 @@ function Caraousal() {
         data-bs-ride="carousel"
       >
         <div className="carousel-inner">
-          <div className="carousel-item active w-100 h-70">
-            <img src="burger.jpg" className="d-block w-100 h-70" alt="..." style={{height:"70vh",objectFit:"fill"}} />
+          <div className="carousel-item active w-100 h-40">
+            <img src="burger.jpg" className="d-block w-100 h-40" alt="..." style={{height:"40vh",objectFit:"fill"}} />
             <div className="carousel-caption ">
               <form className="d-flex my-2 my-lg-0">
                 <input

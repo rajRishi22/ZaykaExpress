@@ -17,7 +17,7 @@ function Home() {
     });
     response = await response.json();
     setFoodItem(response[0]);
-    setFoodCat(response[1]);
+    setFoodCat([...foodCat, ...response[1]]);
   };
 
   useEffect(() => {
@@ -116,7 +116,7 @@ function Home() {
 
 
       <div className='container'>
-        {foodCat.length !== 0 ? (
+        {foodCat && foodCat.length !== 0 ? (
           foodCat.map((data) => {
             return (
               <div className='mb-3' key={data._id}>

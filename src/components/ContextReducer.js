@@ -1,5 +1,9 @@
 import React, { createContext, useContext, useReducer } from 'react';
-
+// useContext is a hook that manages the global state - It solves the problem of prop drilling 
+// useReducer is a hook that manages the state and actions in a single function
+// createContext is a function that creates a context to be used in the application
+// useContext is a hook that returns the current context value for the context
+// useReducer is used for managing a lot of state values in a single function - state and action value hota hai isme
 const cartStateContext = createContext();
 const cartDispatchContext = createContext();
 
@@ -16,7 +20,6 @@ const reducer = (state, action) => {
                     price: action.payload.price,
                 },
             ];
-
         case "REMOVE":
             let newArr=[...state]
             newArr.splice(action.index,1)
