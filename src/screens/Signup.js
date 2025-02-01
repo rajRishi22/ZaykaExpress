@@ -33,35 +33,189 @@ function Signup() {
     }
 
   return (
-    <>
-    <div className='container w-50 d:flex justify-center content-center border-2 border-indigo-500' >
+  <div className="signup-container">
+    <div className="signup-card">
+      <h2>Create Account</h2>
+      <p className="text-muted mb-4">Join us for delicious journey</p>
+      
+      <form onSubmit={handleSubmit}>
+        <div className="form-floating mb-3">
+          <input 
+            type="text" 
+            className="form-control" 
+            id="name"
+            name="name"
+            placeholder="Enter Name"
+            value={credentials.name}
+            onChange={onChange}
+          />
+          <label htmlFor="name">Name</label>
+        </div>
 
-    <form onSubmit={handleSubmit}>
-    <h2 className='text-center'>Please enter your details to signup</h2>
-  <div className="form-group">
-    <label htmlFor="name">Name</label>
-    <input type="text" className="form-control" name='name' value={credentials.name} onChange={onChange} />
+        <div className="form-floating mb-3">
+          <input 
+            type="email" 
+            className="form-control" 
+            id="email"
+            name="email"
+            placeholder="Email address"
+            value={credentials.email}
+            onChange={onChange}
+          />
+          <label htmlFor="email">Email address</label>
+        </div>
+
+        <div className="form-floating mb-3">
+          <input 
+            type="password" 
+            className="form-control" 
+            id="password"
+            name="password"
+            placeholder="Password"
+            value={credentials.password}
+            onChange={onChange}
+          />
+          <label htmlFor="password">Password</label>
+        </div>
+
+        <div className="form-floating mb-4">
+          <input 
+            type="text" 
+            className="form-control" 
+            id="location"
+            name="geolocation"
+            placeholder="Address"
+            value={credentials.geolocation}
+            onChange={onChange}
+          />
+          <label htmlFor="location">Address</label>
+        </div>
+
+        <button type="submit" className="btn btn-primary w-100 mb-3">
+          Create Account
+        </button>
+        <Link to="/login" className="btn btn-outline w-100">
+          Already have an account?
+        </Link>
+      </form>
+    </div>
+
+    <div className="background">
+      <div className="shape"></div>
+      <div className="shape"></div>
+    </div>
+
+    <style>
+      {`
+        .signup-container {
+          min-height: 100vh;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 20px;
+          background: linear-gradient(135deg, #FF5F6D, #FFC371);
+          position: relative;
+          overflow: hidden;
+        }
+
+        .background {
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          z-index: 1;
+        }
+
+        .shape {
+          height: 200px;
+          width: 200px;
+          position: absolute;
+          border-radius: 50%;
+        }
+
+        .shape:first-child {
+          background: linear-gradient(#FF5F6D, #FFC371);
+          right: -100px;
+          top: -100px;
+        }
+
+        .shape:last-child {
+          background: linear-gradient(to right, #FF5F6D, #FFC371);
+          left: -100px;
+          bottom: -100px;
+        }
+
+        .signup-card {
+          width: 400px;
+          background: rgba(255, 255, 255, 0.9);
+          padding: 40px;
+          border-radius: 20px;
+          box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+          backdrop-filter: blur(10px);
+          position: relative;
+          z-index: 2;
+        }
+
+        h2 {
+          color: #2d3436;
+          font-weight: 600;
+          margin-bottom: 5px;
+        }
+
+        .form-floating > input {
+          border: 2px solid #eee;
+          border-radius: 12px;
+          height: 55px;
+        }
+
+        .form-floating > input:focus {
+          border-color: #FF5F6D;
+          box-shadow: 0 0 0 0.25rem rgba(255, 95, 109, 0.1);
+        }
+
+        .btn {
+          height: 50px;
+          border-radius: 12px;
+          font-weight: 500;
+          font-size: 16px;
+          transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+          background: #FF5F6D;
+          border: none;
+        }
+
+        .btn-primary:hover {
+          background: #ff4757;
+          transform: translateY(-2px);
+          box-shadow: 0 5px 15px rgba(255, 95, 109, 0.3);
+        }
+
+        .btn-outline {
+          border: 2px solid #FF5F6D;
+          color: #FF5F6D;
+          background: transparent;
+          text-decoration: none;
+        }
+
+        .btn-outline:hover {
+          background: #FF5F6D;
+          color: white;
+          transform: translateY(-2px);
+        }
+
+        @media (max-width: 480px) {
+          .signup-card {
+            width: 100%;
+            padding: 30px 20px;
+          }
+        }
+      `}
+    </style>
   </div>
-  <div className="form-group">
-    <label htmlFor="exampleInputEmail1">Email address</label>
-    <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" name='email' value={credentials.email} onChange={onChange}/>
-    <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
-  </div>
-  <div className="form-group">
-    <label htmlFor="exampleInputPassword1">Password</label>
-    <input type="password" className="form-control" placeholder="Password" name='password' value={credentials.password} onChange={onChange}/>
-  </div>
-  <div className="form-group">
-    <label htmlFor="exampleInputPassword1">Address</label>
-    <input type="text" className="form-control"  placeholder="Address" name='geolocation' value={credentials.geolocation} onChange={onChange}/>
-  </div>
-  
-  <button type="submit" className="btn btn-primary">Submit</button>
-  <Link to="/login" className='m-3 btn btn-danger'>Already have an account?</Link>
-</form>
-</div>
-    </>
-  )
+);
 }
 
 export default Signup
