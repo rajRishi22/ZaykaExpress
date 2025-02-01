@@ -19,7 +19,7 @@ function Booking() {
       });
       const data = await response.json();
       
-      if (data.orderData) {
+      if (data.orderData && data.orderData.order_data) {
         setOrders(data.orderData.order_data);
       }
     } catch (error) {
@@ -42,11 +42,10 @@ function Booking() {
         {loading ? (
           <div className="text-center">Loading...</div>
         ) : orders && orders.length > 0 ? (
-          orders.map((order, index) => (
+          orders.map((orderArray, index) => (
             <div key={index} className="card mb-3">
               <div className="card-body">
                 <h5 className="card-title">Order #{index + 1}</h5>
-                <p className="card-text">Date: {order.Order_date}</p>
                 <div className="table-responsive">
                   <table className="table">
                     <thead>
@@ -58,14 +57,14 @@ function Booking() {
                       </tr>
                     </thead>
                     <tbody>
-                      {order.map((item, itemIndex) => (
+                      {Array.isArray(orderArray) ? orderArray.map((item, itemIndex) => (
                         <tr key={itemIndex}>
                           <td>{item.foodName}</td>
                           <td>{item.qty}</td>
                           <td>{item.size}</td>
                           <td>₹{item.price}</td>
                         </tr>
-                      ))}
+                      )) : null}
                     </tbody>
                   </table>
                 </div>
