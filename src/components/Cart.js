@@ -96,7 +96,7 @@ export default function Cart() {
                     className="delete-btn"
                     onClick={() => dispatch({ type: "REMOVE", index: index })}
                   >
-                    <i className="bi bi-trash"></i>
+                    <i className="bi bi-trash"> delete</i>
                   </button>
                 </div>
               ))}

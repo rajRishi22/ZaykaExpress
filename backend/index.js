@@ -9,7 +9,7 @@ app.get('/',(req,res)=>{
     res.send('Hello world');
 })
 app.use((req,res,next)=>{
-    res.setHeader("Access-Control-Allow-Origin", ["http://localhost:3000", "https://zayka-express-f1j7.vercel.app"]);
+    res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000/");
     res.header("Acess-Control-Allow-Headers",
         "Origin, X-Requested-With, Content-Type, Accept"
     );
