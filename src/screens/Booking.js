@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Navbar from '../components/Navbar';
+import config from '../config';
 
 function Booking() {
   const [orders, setOrders] = useState([]);
@@ -8,7 +9,7 @@ function Booking() {
   const loadOrders = async () => {
     try {
       const userEmail = localStorage.getItem('userEmail');
-      const response = await fetch("http://localhost:5000/api/myOrderData", {
+      const response = await fetch(`${config.BASE_URL}/api/myOrderData`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

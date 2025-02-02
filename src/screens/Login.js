@@ -2,6 +2,8 @@ import React from 'react'
 import {useState} from 'react';
 import  {Link} from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import config from '../config';
+
 export default function Login() {
 
   const [credentials,setcredentials]=useState({email:'',password:''});
@@ -10,31 +12,33 @@ export default function Login() {
 
     const handleSubmit = async(e)=>{
         e.preventDefault();
-        console.log(JSON.stringify({email:credentials.email,password:credentials.password}));
-        const response=await fetch("http://localhost:5000/api/loginuser",{
-            method:'POST',
-            headers:{
-                'Content-Type':'application/json'
-            },
-            body:JSON.stringify({
-                
-                email:credentials.email,
-                password:credentials.password,
-                
-            })
-        });
-        const json=await response.json();
-        console.log(json);  
-        if(!json.success){
-            alert('Enter valid details');
+        try {
+            const response=await fetch(`${config.BASE_URL}/api/loginuser`,{
+                method:'POST',
+                headers:{
+                    'Content-Type':'application/json'
+                },
+                body:JSON.stringify({
+                    
+                    email:credentials.email,
+                    password:credentials.password,
+                    
+                })
+            });
+            const json=await response.json();
+            console.log(json);  
+            if(!json.success){
+                alert('Enter valid details');
+            }
+            if(json.success){
+              localStorage.setItem('userEmail',credentials.email);
+              localStorage.setItem('authToken',json.authToken);
+              console.log(localStorage.getItem('authToken'));
+              navigate('/');
+            }
+        } catch (error) {
+            console.error('Error:', error);
         }
-        if(json.success){
-          localStorage.setItem('userEmail',credentials.email);
-          localStorage.setItem('authToken',json.authToken);
-          console.log(localStorage.getItem('authToken'));
-          navigate('/');
-        }
-        
     }
     const onChange=(event)=>{
         setcredentials({...credentials,[event.target.name]:event.target.value})
