@@ -13,17 +13,15 @@ export default function Login() {
     const handleSubmit = async(e)=>{
         e.preventDefault();
         try {
-            const response=await fetch(`${config.BASE_URL}/api/loginuser`,{
-                method:'POST',
-                headers:{
-                    'Content-Type':'application/json'
-                },
-                body:JSON.stringify({
-                    
-                    email:credentials.email,
-                    password:credentials.password,
-                    
-                })
+            const response=await fetch('https://zayka-express-evl9.vercel.app/api/loginuser',{
+              method:'POST',
+              headers:{
+                'Content-Type':'application/json'
+              },
+              body:JSON.stringify({
+                email:credentials.email,
+                password:credentials.password,
+              })
             });
             const json=await response.json();
             console.log(json);  

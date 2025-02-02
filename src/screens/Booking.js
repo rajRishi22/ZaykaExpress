@@ -9,7 +9,7 @@ function Booking() {
   const loadOrders = async () => {
     try {
       const userEmail = localStorage.getItem('userEmail');
-      const response = await fetch(`${config.BASE_URL}/api/myOrderData`, {
+      const response = await fetch(`https://zayka-express-evl9.vercel.app/api/myOrderData`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
