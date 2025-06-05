@@ -18,10 +18,13 @@ function Booking() {
           email: userEmail
         })
       });
+      console.log("Response from server:", response);
       const data = await response.json();
-      
+      console.log("Data received:", data);
+      console.log("Order data:", data.orderData.order_data);
       if (data.orderData && data.orderData.order_data) {
-        setOrders(data.orderData.order_data);
+        const validOrders = data.orderData.order_data.filter(order => order.items && order.items.length > 0).reverse();
+        setOrders(validOrders);
       }
     } catch (error) {
       console.error("Error fetching orders:", error);
@@ -43,10 +46,11 @@ function Booking() {
         {loading ? (
           <div className="text-center">Loading...</div>
         ) : orders && orders.length > 0 ? (
-          orders.map((orderArray, index) => (
-            <div key={index} className="card mb-3">
+          orders.map((order, index) => (
+            <div key={order._id || index} className="card mb-3">
               <div className="card-body">
-                <h5 className="card-title">Order #{index + 1}</h5>
+                <h5 className="card-title">Order #{orders.length - index}</h5>
+                <p className="card-text"><strong>Order Date:</strong> {new Date(order.Order_date).toLocaleDateString()} {new Date(order.Order_date).toLocaleTimeString()}</p>
                 <div className="table-responsive">
                   <table className="table">
                     <thead>
@@ -58,8 +62,8 @@ function Booking() {
                       </tr>
                     </thead>
                     <tbody>
-                      {Array.isArray(orderArray) ? orderArray.map((item, itemIndex) => (
-                        <tr key={itemIndex}>
+                      {Array.isArray(order.items) ? order.items.map((item, itemIndex) => (
+                        <tr key={item._id || itemIndex}>
                           <td>{item.foodName}</td>
                           <td>{item.qty}</td>
                           <td>{item.size}</td>
@@ -69,6 +73,7 @@ function Booking() {
                     </tbody>
                   </table>
                 </div>
+                <p className="card-text mt-2"><strong>Total Price:</strong> ₹{order.totalPrice}</p>
               </div>
             </div>
           ))
