@@ -38,7 +38,7 @@ export default function Cart() {
             }]
         };
 
-        const response = await fetch("http://localhost:5000/api/orderData", {
+        const response = await fetch("https://zayka-express-evl9.vercel.app/api/orderData", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
